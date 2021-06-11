@@ -31,9 +31,39 @@ const getAll = async(req, res)=>{
    }
 }
 
+const atualizaEstudio = async (req, res) => {
+   const encontraEstudio = await Estudio.findById(req.params.id)
+   if(encontraEstudio == null) {
+      return res.status(404).json({message: "estudio não encontrado"})
+   }
 
+   if (req.body.nome != null) {
+      encontraEstudio.nome = req.body.nome
+   }
+
+
+   const estudioatualizado = await encontraEstudio.save()
+   res.status(200).json(estudioatualizado)
+
+}
+
+const deletaEstudio = async (req, res) =>{
+   const encontraEstudio = await Estudio.findById(req.params.id)
+   if(encontraEstudio == null) {
+      return res.status(404).json({message: "estudio não encontrado"})
+   }
+
+   try {
+      await encontraEstudio.remove()
+   res.status(200).json({message: "estudio deletado"})
+   } catch (error) {
+      res.status(500).json({message: err.message})
+   }
+}
 
 module.exports = {
    createEstudio,
-   getAll
+   getAll,
+   atualizaEstudio,
+   deletaEstudio
 }

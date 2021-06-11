@@ -39,10 +39,17 @@ const mostraTitulosMarvel = async (req,res) =>{
    return res.status(200).json(titulosFiltrados)
 }
 
+const mostraTitulosGhibli = async (req, res) =>{
+   const titulos = await Titulo.find().populate("estudio")
+   const titulosFiltrados = titulos.filter(titulo => titulo.estudio.npme == "Ghibli")
+
+   return res.status(200).json(titulosFiltrados)
+}
 
 
 module.exports ={
    createTitle,
    showTitle,
-   mostraTitulosMarvel
+   mostraTitulosMarvel,
+   mostraTitulosGhibli
 }

@@ -14,7 +14,7 @@ router.get("/marvel", controller.mostraTitulosMarvel)
 
 //Ler todos os títulos da Marvel
 
-
+router.get("/ghibli", controller.mostraTitulosGhibli)
 
 
 

@@ -10,9 +10,9 @@ router.post("/", controller.createEstudio )
 router.get("/", controller.getAll)
 
 //update -> PATCH -> getById(), findOne () e save()
-
+router.patch("/:id", controller.atualizaEstudio)
 
 //deletar -> DELETE -> getById(), findOne () e remove()
-
+router.delete("/:id", controller.deletaEstudio)
 
 module.exports = router
