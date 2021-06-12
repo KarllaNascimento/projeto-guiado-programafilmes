@@ -17,8 +17,11 @@ router.get("/marvel", controller.mostraTitulosMarvel)
 router.get("/ghibli", controller.mostraTitulosGhibli)
 
 
+router.get("/pixar", controller.mostraTitulosPixar)
 
+router.patch("/:id", controller.atualizaFilme)
 
+router.delete("/:id", controller.deletaTitulo)
 
 
 

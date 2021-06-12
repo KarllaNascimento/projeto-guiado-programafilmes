@@ -41,15 +41,54 @@ const mostraTitulosMarvel = async (req,res) =>{
 
 const mostraTitulosGhibli = async (req, res) =>{
    const titulos = await Titulo.find().populate("estudio")
-   const titulosFiltrados = titulos.filter(titulo => titulo.estudio.npme == "Ghibli")
+   const titulosFiltrados = titulos.filter(titulo => titulo.estudio.nome == "Ghibli")
 
    return res.status(200).json(titulosFiltrados)
 }
 
+const mostraTitulosPixar = async (req, res) =>{
+   const titulos = await Titulo.find().populate("estudio")
+   const titulosFiltrados = titulos.filter(titulo => titulo.estudio.nome == "Ghibli")
+
+   return res.status(200).json(titulosFiltrados)
+}
+
+const atualizaFilme = async (req, res) => {
+   const encontraFilme = await Filme.findById(req.params.id)
+   if(encontraFilme == null) {
+      return res.status(404).json({message: "Filme não encontrado!"})
+   }
+
+   if (req.body.nome != null) {
+      encontraFilme.nome = req.body.nome
+   }
+
+
+   const filmeAtualizado = await encontraFilme.save()
+   res.status(200).json(filmeAtualizado)
+
+}
+
+const deletaTitulo = async (req, res) =>{
+   const encontraTitulo= await Titulo.findById(req.params.id)
+   if(encontraTitulo == null) {
+      return res.status(404).json({message: "estudio não encontrado"})
+   }
+
+   try {
+      await encontraTitulo.remove()
+   res.status(200).json({message: "estudio deletado"})
+   } catch (error) {
+      res.status(500).json({message: err.message})
+   }
+}
 
 module.exports ={
    createTitle,
    showTitle,
    mostraTitulosMarvel,
-   mostraTitulosGhibli
+   mostraTitulosGhibli,
+   mostraTitulosPixar,
+   atualizaFilme,
+   deletaTitulo
 }
